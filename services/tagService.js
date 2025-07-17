@@ -10,7 +10,6 @@ const openai = new OpenAI({
 
 })
 
-
 //태그생성 코드
 const createTagPrompt = (content) => {
  return [
@@ -98,7 +97,12 @@ export const testTagGenerate = async () => {
         console.log(`============================================================== ${index}`);
         console.log("원본 : " , content)
         const result = await generateTags(content)                
-        console.log(" ~ result : ", result)
+        
+        if(!!result){
+            console.log(" result 끝!!!!!!!!!!!")
+        }
+        
+        //console.log(" ~ result : ", result)
         // conarray.push(result[2].content);            
         // conarray2 = [...conarray]
         // console.log(" ~ conarray : ", conarray)

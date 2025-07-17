@@ -1,7 +1,8 @@
 import express from "express"
 import dotenv from "dotenv"
 import { testTagGenerate } from "./services/tagService.js";
-import posRouter from "./routes/posts.js";
+import posRouter, { init } from "./routes/posts.js";
+import { connectDB } from "./database/db.js";
 
 //환경변수 로드 
 // 전역으로 로드해서 모든 node.js 모듈 내에서 접근 가능 
@@ -20,10 +21,12 @@ app.use(express.urlencoded({extended:true}));
 app.use("/posts", posRouter );
 
 
-app.listen(PORT,() => {
+app.listen(PORT, async() => {
     console.log("Server running at..", PORT);
     //console.log(OPENAI_API_KEY);
     //testTagGenerate();
+    const db = await connectDB();
+    init(db);
 })
 
 
