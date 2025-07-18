@@ -11,7 +11,7 @@ export const connectDB = async() => {
             return db
         }
 
-        const MONGODB_URI=process.env.MONGO_URL_LOCAL
+        const MONGODB_URI= (process.env.MONGO_URL_ENV === "development" ? process.env.MONGODB_URI_LOCAL : process.env.MONGODB_URI_ATLAS)
         console.log("~~ ");
         const client = new MongoClient(MONGODB_URI);        
 
