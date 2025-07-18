@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import postRouter, { init } from "./routes/posts.js";
 import { connectDB } from "./database/db.js";
 import cors from "cors";
-import { handleSSEConnection } from "./sseManager.js";
+//import { handleSSEConnection } from "./sseManager.js";
 
 // 환경변수 로드
 // 전역으로 로드해서 모든 node.js모듈 내에서 접근가능
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // SSE 연결 라우트
-app.get("/events", handleSSEConnection);
+//app.get("/events", handleSSEConnection);
 
 // 라우터 미들웨어 등록
 app.use("/posts", postRouter);
