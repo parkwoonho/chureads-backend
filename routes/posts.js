@@ -1,6 +1,7 @@
 import express from "express"
 import { generateTags } from "../services/tagService.js";
 import { ObjectId } from "mongodb";
+import { broadcastToClients } from "../sse/sseManager.js";
 
 const router = express.Router();  //게시물 관련된  모든 API 엔드포인트를 관리하는 라우터 
 
@@ -46,7 +47,7 @@ router.post("/", async (req, res) => {
 
     //chat ai로 태그 생성 
      const tags = await generateTags(post.content);
-     console.log("tags====", tags)
+    console.log("tags====", tags)
     const newItem = {
       ...post,
       likeCount: 0,      
@@ -54,7 +55,19 @@ router.post("/", async (req, res) => {
       tags,
       createdAt: new Date(),
     };
+        
     const result = await collection.insertOne(newItem);
+
+    //새게시물 알림을 모든 클라이언트에게 전송
+    broadcastToClients("newPost", {
+      postId: result.insertedId,
+      userName : newItem.userName,
+      content : newItem.content.substring(0,20) + (newItem.content.length > 20 ? "..." : "" ),
+      createdAt : newItem.createdAt,
+      message : `${newItem.userName}이 새글을 작성 했습니다.`
+
+    })
+
 
     // TODO: 새 게시물 알림을 모든 클라이언트에게 전송
     res.status(201).json({...result});
