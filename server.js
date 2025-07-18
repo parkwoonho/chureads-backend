@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import postRouter, { init } from "./routes/posts.js";
 import { connectDB } from "./database/db.js";
 import cors from "cors";
-import { handleSSEConnection } from "./seeManager.js";
+import { handleSSEConnection } from "./sseManager.js";
 
 // 환경변수 로드
 // 전역으로 로드해서 모든 node.js모듈 내에서 접근가능
