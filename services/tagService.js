@@ -71,10 +71,11 @@ export const generateTags = async (content) => {
    });
    
   //console.log("response" , response)
-
+   console.log("generateTags");
    const data = [...messages, response.choices[0].message];
-   const tagTest = response.choices[0].message
-   return tagTest;
+   const taglist = response.choices[0].message.content.split(",")
+   console.log("!!!!!!!!!!!", taglist)
+   return taglist;
  } catch (error) {
    console.log(error);
    throw error;
@@ -90,22 +91,41 @@ const testContents = [
 ];
 
 export const testTagGenerate = async () => {
-    // let conarray = []
-    // let conarray2 = []
+    // // let conarray = []
+    // // let conarray2 = []
 
-    testContents.forEach(async (content,index) => {
-        console.log(`============================================================== ${index}`);
-        console.log("원본 : " , content)
-        const result = await generateTags(content)                
+    // testContents.forEach(async (content,index) => {
+    //     //const result = await generateTags(content)  
+    //     // if(index >=1 && result != null)   {
+    //     //         console.log(" 이벤트 발생함 .")
+    //     // } 
+    //     console.log(`============================================================== ${index}`);
+    //     console.log("원본 : " , content)
+    //     //const result = await generateTags(content)  
         
-        if(!!result){
-            console.log(" result 끝!!!!!!!!!!!")
-        }
+    //     // if(!!result){
+    //     //     console.log(" result 끝!!!!!!!!!!!")
+    //     // }
         
-        //console.log(" ~ result : ", result)
-        // conarray.push(result[2].content);            
-        // conarray2 = [...conarray]
-        // console.log(" ~ conarray : ", conarray)
-    })
-    //console.log(" ~ conarray2 : ", conarray2)
+    //     //console.log(" ~ result : ", result)
+    //     // conarray.push(result[2].content);            
+    //     // conarray2 = [...conarray]
+    //     // console.log(" ~ conarray : ", conarray)
+    // })
+
+    // //testContents.forEach(async (content,index) => {
+    //     // for (let content in testContents ){
+
+    //     // console.log(`==============================================================`);
+    //     // console.log("원본 : " , content)
+    //     // const result = await generateTags(content)  
+    //     // console.log(" result 끝!!!!!!!!!!!")
+    //     // }
+        
+    //     //console.log(" ~ result : ", result)
+    //     // conarray.push(result[2].content);            
+    //     // conarray2 = [...conarray]
+    //     // console.log(" ~ conarray : ", conarray)
+        
+    // //console.log(" ~ conarray2 : ", conarray2)
 }

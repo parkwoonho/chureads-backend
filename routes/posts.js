@@ -1,5 +1,7 @@
 import express from "express"
 import { generateTags } from "../services/tagService.js";
+import { ObjectId } from "mongodb";
+
 const router = express.Router();  //게시물 관련된  모든 API 엔드포인트를 관리하는 라우터 
 
 let collection;
@@ -43,8 +45,8 @@ router.post("/", async (req, res) => {
     const post = req.body;
 
     //chat ai로 태그 생성 
-    const tags = await generateTags(post.content);
-    console.log("tags====", tags)
+     const tags = await generateTags(post.content);
+     console.log("tags====", tags)
     const newItem = {
       ...post,
       likeCount: 0,      
@@ -55,7 +57,7 @@ router.post("/", async (req, res) => {
     const result = await collection.insertOne(newItem);
 
     // TODO: 새 게시물 알림을 모든 클라이언트에게 전송
-    res.status(201).json({...result, tags});
+    res.status(201).json({...result});
   } catch (error) {
     console.log(error);
   }

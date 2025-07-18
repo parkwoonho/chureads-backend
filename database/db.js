@@ -17,7 +17,7 @@ export const connectDB = async() => {
 
         await client.connect();
         db = client.db(process.env.DB_NAME);
-        console.log("🐱‍🏍mongodb 연결 성공");
+        console.log("mongodb 연결 성공");
 
         return db
 
